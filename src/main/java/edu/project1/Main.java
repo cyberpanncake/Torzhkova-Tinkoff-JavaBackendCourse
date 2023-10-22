@@ -25,7 +25,12 @@ public class Main {
             while (true) {
                 try {
                     Game game = new Game(reader);
-                    game.play();
+                    boolean isWordGuessed = game.play();
+                    if (isWordGuessed) {
+                        LOGGER.info("Вы выиграли!");
+                    } else {
+                        LOGGER.info("Вы проиграли, попытки закончились");
+                    }
                     LOGGER.info(CONTINUE_QUESTION_MESSAGE);
                     String input = reader.readLine();
                     if (!"да".equalsIgnoreCase(input)) {

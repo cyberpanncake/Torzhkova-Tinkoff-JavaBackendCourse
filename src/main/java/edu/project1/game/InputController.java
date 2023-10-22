@@ -15,7 +15,7 @@ public class InputController {
         this.word = word;
     }
 
-    public boolean proccessGuess() throws NeedToStopGameEvent, WrongInputException, IOException {
+    public boolean processGuess() throws NeedToStopGameEvent, WrongInputException, IOException {
         try {
             String input = reader.readLine();
             if (input == null) {

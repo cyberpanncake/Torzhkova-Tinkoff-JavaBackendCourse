@@ -24,7 +24,7 @@ public class Game {
         this.inputController = new InputController(reader, word);
     }
 
-    public void play() throws NeedToStopGameEvent, IOException {
+    public boolean play() throws NeedToStopGameEvent, IOException {
         LOGGER.info(START_MESSAGE.formatted(word.getLength(), attemptsLeft));
         boolean totalWordGuessed = false;
         while (attemptsLeft > 0 && !totalWordGuessed) {
@@ -32,7 +32,7 @@ public class Game {
             while (guessResult == null) {
                 try {
                     LOGGER.info("Введите букву:");
-                    guessResult = inputController.proccessGuess();
+                    guessResult = inputController.processGuess();
                 } catch (WrongInputException e) {
                     LOGGER.warn(e.getMessage());
                 }
@@ -45,10 +45,6 @@ public class Game {
             }
             LOGGER.info("Слово: %s".formatted(word.getView()));
         }
-        if (totalWordGuessed) {
-            LOGGER.info("Вы выиграли!");
-        } else {
-            LOGGER.info("Вы проиграли, попытки закончились");
-        }
+        return totalWordGuessed;
     }
 }
