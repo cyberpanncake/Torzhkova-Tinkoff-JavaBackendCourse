@@ -32,7 +32,7 @@ class GameTest {
     @ParameterizedTest
     @MethodSource("parametersWords")
     public void playWinTest(String word)
-        throws CreateWordException, NeedToStopGameEvent, IOException, WrongInputException {
+        throws CreateWordException, NeedToStopGameEvent, IOException {
         Set<String> lettersSet = new HashSet<>(List.of(word.split("")));
         String letters = String.join("\n", lettersSet);
         boolean expected = true;
@@ -45,7 +45,7 @@ class GameTest {
     @ParameterizedTest
     @MethodSource("parametersWords")
     public void playLossTest(String word)
-        throws CreateWordException, NeedToStopGameEvent, IOException, WrongInputException {
+        throws CreateWordException, NeedToStopGameEvent, IOException {
         List<String> lettersList = new ArrayList<>();
         for (int i = 0; i < Game.TOTAL_ATTEMPTS; i++) {
             lettersList.add(String.valueOf(getNextLetterNotInWord(word)));
