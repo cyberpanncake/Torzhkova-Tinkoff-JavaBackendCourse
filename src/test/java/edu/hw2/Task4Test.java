@@ -29,7 +29,7 @@ public class Task4Test {
 
     @Test
     public void callingInfoInsideLambdaTest() {
-        Supplier<CallingInfo> supplier = () -> CallingInfoUtils.callingInfo();
+        Supplier<CallingInfo> supplier = CallingInfoUtils::callingInfo;
         CallingInfo info = supplier.get();
 
         Assertions.assertEquals(info.className(), this.getClass().getName());
