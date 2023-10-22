@@ -20,8 +20,7 @@ public class Game {
     private int attemptsLeft = TOTAL_ATTEMPTS;
 
     public Game(BufferedReader reader) throws CreateWordException {
-        Word randomWord = RandomWordFromFileUtils.getRandomWord();
-        this.word = randomWord;
+        this.word = RandomWordFromFileUtils.getRandomWord();
         this.inputController = new InputController(reader, word);
     }
 

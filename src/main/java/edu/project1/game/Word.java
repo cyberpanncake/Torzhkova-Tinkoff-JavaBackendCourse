@@ -6,12 +6,12 @@ public class Word {
     private static final String WRONG_WORD_LENGTH_ERROR_MESSAGE = "Ошибка при создании угадываемого слова."
         + "Слово должно иметь больше 2-х букв";
     private static final String UNGUESSED_LETTER = "*";
-    private char[] letters;
-    private boolean[] isGuessed;
+    private final char[] letters;
+    private final boolean[] isGuessed;
     private final int length;
 
     public Word(String word) throws CreateWordException {
-        if (word == null || "".equals(word) || word.length() <= 2) {
+        if (word == null || word.isEmpty() || word.length() <= 2) {
             throw new CreateWordException(WRONG_WORD_LENGTH_ERROR_MESSAGE);
         }
         letters = word.toLowerCase().toCharArray();
@@ -23,11 +23,11 @@ public class Word {
     }
 
     public String getView() {
-        String word = "";
+        StringBuilder word = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            word += isGuessed[i] ? letters[i] : UNGUESSED_LETTER;
+            word.append(isGuessed[i] ? letters[i] : UNGUESSED_LETTER);
         }
-        return word;
+        return word.toString();
     }
 
     public boolean isAllLettersGuessed() {

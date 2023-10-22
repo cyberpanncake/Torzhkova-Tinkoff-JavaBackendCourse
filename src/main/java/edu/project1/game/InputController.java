@@ -21,7 +21,7 @@ public class InputController {
             if (input == null) {
                 throw new NeedToStopGameEvent();
             }
-            if ("".equals(input)) {
+            if (input.isEmpty()) {
                 throw new WrongInputException("Неверный ввод. Введите букву");
             }
             if (input.length() > 1) {
@@ -31,7 +31,7 @@ public class InputController {
             if (!input.matches("[а-я]")) {
                 throw new WrongInputException("Неверный ввод. Введите букву русского алфавита");
             }
-            if (inputtedLetters.indexOf(input) != -1) {
+            if (inputtedLetters.contains(input)) {
                 throw new WrongInputException("Неверный ввод. Вы уже вводили эту букву раньше");
             }
             inputtedLetters += input;

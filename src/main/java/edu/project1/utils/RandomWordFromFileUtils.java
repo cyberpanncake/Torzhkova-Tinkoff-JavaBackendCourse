@@ -22,7 +22,7 @@ public class RandomWordFromFileUtils {
 
     public static Word getRandomWord() throws CreateWordException {
         try (BufferedReader br = new BufferedReader(new FileReader(WORDS_FILE_PATH))) {
-            List<String> lines = br.lines().collect(Collectors.toList());
+            List<String> lines = br.lines().toList();
             int randomWordIndex = (int) (Math.random() * lines.size());
             return new Word(lines.get(randomWordIndex));
         } catch (FileNotFoundException e) {
