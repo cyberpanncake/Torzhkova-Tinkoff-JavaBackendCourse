@@ -1,14 +1,13 @@
 package edu.project1.game;
 
+import edu.project1.throwable.CreateWordException;
 import edu.project1.throwable.NeedToStopGameEvent;
 import edu.project1.throwable.WrongInputException;
 import edu.project1.utils.RandomWordFromFileUtils;
-import edu.project1.throwable.CreateWordException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Game {
     private final static Logger LOGGER = LogManager.getLogger();
@@ -21,8 +20,8 @@ public class Game {
     private int attemptsLeft = TOTAL_ATTEMPTS;
 
     public Game(BufferedReader reader) throws CreateWordException {
-        Word word = RandomWordFromFileUtils.getRandomWord();
-        this.word = word;
+        Word randomWord = RandomWordFromFileUtils.getRandomWord();
+        this.word = randomWord;
         this.inputController = new InputController(reader, word);
     }
 

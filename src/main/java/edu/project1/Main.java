@@ -3,19 +3,21 @@ package edu.project1;
 import edu.project1.game.Game;
 import edu.project1.throwable.CreateWordException;
 import edu.project1.throwable.NeedToStopGameEvent;
-import edu.project1.throwable.WrongInputException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
     private static final String START_MESSAGE = "Добро пожаловать в игру \"Виселица\". "
         + "На отгадывание одного слова даётся %d попыток. Для прекращения игры нажмите Ctrl + D.";
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final String INPUT_ERROR_MESSAGE = "Ошибка чтения ввода";
+    private static final String CONTINUE_QUESTION_MESSAGE = "Начать игру ещё раз? (да/нет)";
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    private Main() {
+    }
 
     public static void main(String[] args) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, "windows-1251"))) {
@@ -24,27 +26,27 @@ public class Main {
                 try {
                     Game game = new Game(reader);
                     game.play();
-                    LOGGER.info("Начать игру ещё раз? (да/нет)");
+                    LOGGER.info(CONTINUE_QUESTION_MESSAGE);
                     String input = reader.readLine();
                     if (input == null || !"да".equals(input.toLowerCase())) {
-                        return;
+                        break;
                     }
                 } catch (CreateWordException e) {
                     LOGGER.error(e.getMessage());
-                    LOGGER.info("Начать игру ещё раз? (да/нет)");
+                    LOGGER.info(CONTINUE_QUESTION_MESSAGE);
                     String input = null;
                     try {
                         input = reader.readLine();
                     } catch (IOException ex) {
-                        LOGGER.error("Ошибка чтения ввода");
+                        LOGGER.error(INPUT_ERROR_MESSAGE);
                     }
                     if (input == null || !"да".equals(input.toLowerCase())) {
-                        return;
+                        break;
                     }
                 } catch (NeedToStopGameEvent e) {
-                    return;
+                    break;
                 } catch (IOException e) {
-                    LOGGER.error("Ошибка чтения ввода");
+                    LOGGER.error(INPUT_ERROR_MESSAGE);
                 }
             }
         } catch (IOException e) {

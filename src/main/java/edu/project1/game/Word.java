@@ -3,7 +3,8 @@ package edu.project1.game;
 import edu.project1.throwable.CreateWordException;
 
 public class Word {
-    private static final String WRONG_WORD_LENGTH_ERROR_MESSAGE = "Ошибка при создании угадываемого слова. Слово должно иметь больше 2-х букв";
+    private static final String WRONG_WORD_LENGTH_ERROR_MESSAGE = "Ошибка при создании угадываемого слова."
+        + "Слово должно иметь больше 2-х букв";
     private static final String UNGUESSED_LETTER = "*";
     private char[] letters;
     private boolean[] isGuessed;
