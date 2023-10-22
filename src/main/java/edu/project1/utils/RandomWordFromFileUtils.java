@@ -22,7 +22,8 @@ public class RandomWordFromFileUtils {
     }
 
     public static Word getRandomWord() throws CreateWordException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(WORDS_FILE_PATH), StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(
+            new InputStreamReader(new FileInputStream(WORDS_FILE_PATH), StandardCharsets.UTF_8))) {
             List<String> lines = br.lines().filter(s -> !s.isEmpty()).toList();
             int randomWordIndex = (int) (Math.random() * lines.size());
             return new Word(lines.get(randomWordIndex));

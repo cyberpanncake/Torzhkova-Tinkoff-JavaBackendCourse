@@ -35,7 +35,7 @@ public class InputController {
                 throw new WrongInputException("Неверный ввод. Вы уже вводили эту букву");
             }
             inputtedLetters += input;
-            return word.guessLetter(input.toCharArray()[0]);
+            return word.guessLetter(input.charAt(0));
         } catch (IOException e) {
             throw new IOException("Ошибка чтения ввода");
         }
