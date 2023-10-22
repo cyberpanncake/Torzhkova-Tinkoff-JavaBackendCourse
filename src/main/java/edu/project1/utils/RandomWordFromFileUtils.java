@@ -3,12 +3,11 @@ package edu.project1.utils;
 import edu.project1.game.Word;
 import edu.project1.throwable.CreateWordException;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class RandomWordFromFileUtils {
@@ -23,7 +22,7 @@ public class RandomWordFromFileUtils {
     }
 
     public static Word getRandomWord() throws CreateWordException {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(WORDS_FILE_PATH), "UTF8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(WORDS_FILE_PATH), StandardCharsets.UTF_8))) {
             List<String> lines = br.lines().filter(s -> !s.isEmpty()).toList();
             int randomWordIndex = (int) (Math.random() * lines.size());
             return new Word(lines.get(randomWordIndex));
