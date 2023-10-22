@@ -3,7 +3,6 @@ package edu.project1;
 import edu.project1.game.Game;
 import edu.project1.throwable.CreateWordException;
 import edu.project1.throwable.NeedToStopGameEvent;
-import edu.project1.throwable.WrongInputException;
 import edu.project1.utils.WordGuessTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
