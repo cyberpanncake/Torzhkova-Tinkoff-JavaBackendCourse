@@ -11,7 +11,7 @@ public class Word {
     private final int length;
 
     public Word(String word) throws CreateWordException {
-        if (word == null || word.isEmpty() || word.length() <= 2) {
+        if (word == null || word.length() <= 2) {
             throw new CreateWordException(WRONG_WORD_LENGTH_ERROR_MESSAGE);
         }
         letters = word.toLowerCase().toCharArray();

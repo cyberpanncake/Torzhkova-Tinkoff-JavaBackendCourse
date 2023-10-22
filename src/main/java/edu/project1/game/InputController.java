@@ -32,7 +32,7 @@ public class InputController {
                 throw new WrongInputException("Неверный ввод. Введите букву русского алфавита");
             }
             if (inputtedLetters.contains(input)) {
-                throw new WrongInputException("Неверный ввод. Вы уже вводили эту букву раньше");
+                throw new WrongInputException("Неверный ввод. Вы уже вводили эту букву");
             }
             inputtedLetters += input;
             return word.guessLetter(input.toCharArray()[0]);

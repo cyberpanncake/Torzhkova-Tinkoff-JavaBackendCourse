@@ -12,8 +12,8 @@ import org.apache.logging.log4j.Logger;
 public class Game {
     private final static Logger LOGGER = LogManager.getLogger();
     private static final String START_MESSAGE = "Загаданное слово имеет %d букв(ы). Осталось %d попыток";
-    private static final String SUCCESS_MESSAGE = "Угадали! Слово - %s";
-    private static final String FAIL_MESSAGE = "Такой буквы нет. Осталось попыток: %d. Слово - %s";
+    private static final String SUCCESS_MESSAGE = "Угадали!";
+    private static final String FAIL_MESSAGE = "Такой буквы нет. Осталось попыток: %d";
     public static final int TOTAL_ATTEMPTS = 5;
     private final Word word;
     private final InputController inputController;
@@ -38,11 +38,12 @@ public class Game {
                 }
             }
             if (guessResult) {
-                LOGGER.info(SUCCESS_MESSAGE.formatted(word.getView()));
+                LOGGER.info(SUCCESS_MESSAGE);
                 totalWordGuessed = word.isAllLettersGuessed();
             } else {
-                LOGGER.info(FAIL_MESSAGE.formatted(--attemptsLeft, word.getView()));
+                LOGGER.info(FAIL_MESSAGE.formatted(--attemptsLeft));
             }
+            LOGGER.info("Слово: %s".formatted(word.getView()));
         }
         if (totalWordGuessed) {
             LOGGER.info("Вы выиграли!");

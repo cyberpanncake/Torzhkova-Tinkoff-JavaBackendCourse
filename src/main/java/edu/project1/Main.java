@@ -28,7 +28,7 @@ public class Main {
                     game.play();
                     LOGGER.info(CONTINUE_QUESTION_MESSAGE);
                     String input = reader.readLine();
-                    if (input == null || !"да".equalsIgnoreCase(input)) {
+                    if (!"да".equalsIgnoreCase(input)) {
                         break;
                     }
                 } catch (CreateWordException e) {
@@ -40,7 +40,7 @@ public class Main {
                     } catch (IOException ex) {
                         LOGGER.error(INPUT_ERROR_MESSAGE);
                     }
-                    if (input == null || !"да".equalsIgnoreCase(input)) {
+                    if (!"да".equalsIgnoreCase(input)) {
                         break;
                     }
                 } catch (NeedToStopGameEvent e) {
@@ -52,5 +52,6 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        LOGGER.info("Игра завершена");
     }
 }
