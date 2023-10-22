@@ -2,6 +2,7 @@ package edu.project1;
 
 import edu.project1.game.Word;
 import edu.project1.throwable.CreateWordException;
+import edu.project1.utils.WordGuessTestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,14 +12,14 @@ import java.util.stream.Stream;
 
 class WordTest {
     private static final String HIDDEN_LETTER = Word.HIDDEN_LETTER;
-    @SuppressWarnings("MagicNumber")
+    private final WordGuessTestUtils wordGuessTestUtils = new WordGuessTestUtils();
+
     private static Stream<Arguments> parametersWords() {
-        return Stream.of(
-            Arguments.of("слово"),
-            Arguments.of("два"),
-            Arguments.of("водоснабжение"),
-            Arguments.of("абстрактный")
-        );
+        return WordGuessTestUtils.parametersWords();
+    }
+
+    private char getNextLetterNotInWord(String word) {
+        return wordGuessTestUtils.getNextLetterNotInWord(word);
     }
 
     @ParameterizedTest
@@ -85,7 +86,7 @@ class WordTest {
     @ParameterizedTest
     @MethodSource("parametersWords")
     public void wordNotGuessLetterTest(String word) throws CreateWordException {
-        char letter = getLetterNotInWord(word);
+        char letter = getNextLetterNotInWord(word);
         boolean expected = false;
         Word wordObj = new Word(word);
         boolean actual = wordObj.guessLetter(letter);
@@ -95,19 +96,11 @@ class WordTest {
     @ParameterizedTest
     @MethodSource("parametersWords")
     public void wordNotGuessLetterViewTest(String word) throws CreateWordException {
-        char letter = getLetterNotInWord(word);
+        char letter = getNextLetterNotInWord(word);
         String expected = HIDDEN_LETTER.repeat(word.length());
         Word wordObj = new Word(word);
         wordObj.guessLetter(letter);
         String actual = wordObj.getView();
         Assertions.assertEquals(expected,actual);
-    }
-
-    private char getLetterNotInWord(String word) {
-        char letter = 'а';
-        while (word.contains(String.valueOf(letter))) {
-            letter++;
-        }
-        return letter;
     }
 }

@@ -24,6 +24,11 @@ public class Game {
         this.inputController = new InputController(reader, word);
     }
 
+    public Game(BufferedReader reader, String wordStr) throws CreateWordException {
+        this.word = new Word(wordStr);
+        this.inputController = new InputController(reader, word);
+    }
+
     public boolean play() throws NeedToStopGameEvent, IOException {
         LOGGER.info(START_MESSAGE.formatted(word.getLength(), attemptsLeft));
         boolean totalWordGuessed = false;
