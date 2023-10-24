@@ -37,4 +37,22 @@ class Task2Test {
     void squareCreationExceptionTest() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Square(-1));
     }
+
+    @Test
+    void squareSetWidthTest() {
+        int oldSide = 2;
+        int newSide = 3;
+        Rectangle rect = new Square(oldSide);
+        rect = rect.setWidth(newSide);
+        Assertions.assertTrue(rect.getWidth() == newSide && rect.getHeight() == newSide);
+    }
+
+    @Test
+    void squareSetHeightTest() {
+        int oldSide = 2;
+        int newSide = 3;
+        Rectangle rect = new Square(oldSide);
+        rect = rect.setHeight(newSide);
+        Assertions.assertTrue(rect.getWidth() == newSide && rect.getHeight() == newSide);
+    }
 }
