@@ -6,6 +6,7 @@ import edu.project1.throwable.NeedToStopGameEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,8 +21,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, "windows-1251"))) {
-        LOGGER.info(START_MESSAGE.formatted(Game.TOTAL_ATTEMPTS));
+        String encoding = getEncoding();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, encoding))) {
+            LOGGER.info(START_MESSAGE.formatted(Game.TOTAL_ATTEMPTS));
             while (true) {
                 try {
                     Game game = new Game(reader);
@@ -58,5 +60,29 @@ public class Main {
             throw new RuntimeException(e);
         }
         LOGGER.info("Игра завершена");
+    }
+
+    private static String getEncoding() {
+        LOGGER.info("Choose encoding (input 1, 2 or 3):\n1 - windows-1251\n2 - UTF-8\n3 - ASCII");
+        Scanner in = new Scanner(System.in);
+            boolean encodingIsSet = false;
+            int encodingNumber = 0;
+            while (!encodingIsSet) {
+                try {
+                    encodingNumber = Integer.parseInt(in.nextLine());
+                    if (encodingNumber < 1 || encodingNumber > 3) {
+                        throw new Exception();
+                    }
+                    encodingIsSet = true;
+                } catch (Exception e) {
+                    LOGGER.warn("Wrong input, try again");
+                }
+            }
+            return switch (encodingNumber) {
+                case 1 -> "windows-1251";
+                case 2 -> "UTF-8";
+                case 3 -> "ASCII";
+                default -> throw new IllegalStateException("Unexpected value: " + encodingNumber);
+            };
     }
 }
