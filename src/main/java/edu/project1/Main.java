@@ -62,6 +62,7 @@ public class Main {
         LOGGER.info("Игра завершена");
     }
 
+    @SuppressWarnings("MagicNumber")
     private static String getEncoding() {
         LOGGER.info("Choose encoding (input 1, 2 or 3):\n1 - windows-1251\n2 - UTF-8\n3 - ASCII");
         Scanner in = new Scanner(System.in);
