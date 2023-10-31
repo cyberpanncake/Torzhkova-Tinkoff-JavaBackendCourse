@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 class TasksTest {
@@ -16,12 +17,12 @@ class TasksTest {
     @BeforeAll
     public static void fillAnimals() {
         a = new Animal[] {
-            new Animal("Мурка", Animal.Type.CAT, Animal.Sex.F, 3, 40, 5000, false),
-            new Animal("Шарик", Animal.Type.DOG, Animal.Sex.M, 8, 54, 10000, true),
-            new Animal("Аква", Animal.Type.FISH, Animal.Sex.F, 150, 1, 1, true),
+            new Animal("Мурка Павловна", Animal.Type.CAT, Animal.Sex.F, 4, 40, 5000, false),
+            new Animal("Шарик", Animal.Type.DOG, Animal.Sex.M, 8, 100, 10000, true),
+            new Animal("Аква Минерале Экстра", Animal.Type.FISH, Animal.Sex.F, 150, 1, 1, true),
             new Animal("Man", Animal.Type.SPIDER, Animal.Sex.M, 22, 5, 37, true),
-            new Animal("Барбос", Animal.Type.DOG, Animal.Sex.M, 9, 100, 25000, false),
-            new Animal("Муха", Animal.Type.BIRD, Animal.Sex.F, 4, 18, 500, false),
+            new Animal("Барбос", Animal.Type.DOG, Animal.Sex.M, 9, 150, 25000, true),
+            new Animal("Муха - это маленькая птичка", Animal.Type.BIRD, Animal.Sex.F, 2, 18, 500, false),
             new Animal("Кеша", Animal.Type.BIRD, Animal.Sex.M, 3, 20, 650, false)
         };
     }
@@ -102,7 +103,7 @@ class TasksTest {
     @SuppressWarnings("MagicNumber")
     private static Stream<Arguments> parametersTask4() {
         return Stream.of(
-            Arguments.of(List.of(a), a[4]),
+            Arguments.of(List.of(a), a[5]),
             Arguments.of(List.of(), null)
         );
     }
@@ -176,5 +177,170 @@ class TasksTest {
     @Test
     public void task7ExceptionTest() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task7(null, 1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask8")
+    public void task8Test(List<Animal> animals, int k, Optional<Animal> expected) {
+        Optional<Animal> actual = Tasks.task8(animals, k);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask8() {
+        return Stream.of(
+            Arguments.of(List.of(a), 40, Optional.of(a[6])),
+            Arguments.of(List.of(a), 15, Optional.of(a[3])),
+            Arguments.of(List.of(a), 1, Optional.empty()),
+            Arguments.of(List.of(), 1000, Optional.empty())
+        );
+    }
+
+    @Test
+    public void task8ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task8(null, 1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask9")
+    public void task9Test(List<Animal> animals, int expected) {
+        int actual = Tasks.task9(animals);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask9() {
+        return Stream.of(
+            Arguments.of(List.of(a), 24),
+            Arguments.of(List.of(a[0]), 4),
+            Arguments.of(List.of(), 0)
+        );
+    }
+
+    @Test
+    public void task9ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task9(null));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask10")
+    public void task10Test(List<Animal> animals, List<Animal> expected) {
+        List<Animal> actual = Tasks.task10(animals);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask10() {
+        return Stream.of(
+            Arguments.of(List.of(a), List.of(a[1], a[2], a[3], a[4], a[6])),
+            Arguments.of(List.of(), List.of())
+        );
+    }
+
+    @Test
+    public void task10ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task10(null));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask11")
+    public void task11Test(List<Animal> animals, List<Animal> expected) {
+        List<Animal> actual = Tasks.task11(animals);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask11() {
+        return Stream.of(
+            Arguments.of(List.of(a), List.of(a[4])),
+            Arguments.of(List.of(), List.of())
+        );
+    }
+
+    @Test
+    public void task11ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task11(null));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask12")
+    public void task12Test(List<Animal> animals, int expected) {
+        int actual = Tasks.task12(animals);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask12() {
+        return Stream.of(
+            Arguments.of(List.of(a), 6),
+            Arguments.of(List.of(), 0)
+        );
+    }
+
+    @Test
+    public void task12ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task12(null));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask13")
+    public void task13Test(List<Animal> animals, List<Animal> expected) {
+        List<Animal> actual = Tasks.task13(animals);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask13() {
+        return Stream.of(
+            Arguments.of(List.of(a), List.of(a[2], a[5])),
+            Arguments.of(List.of(), List.of())
+        );
+    }
+
+    @Test
+    public void task13ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task13(null));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask14")
+    public void task14Test(List<Animal> animals, int k, boolean expected) {
+        boolean actual = Tasks.task14(animals, k);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask14() {
+        return Stream.of(
+            Arguments.of(List.of(a), 100, true),
+            Arguments.of(List.of(a), 160, false),
+            Arguments.of(List.of(), 1, false)
+        );
+    }
+
+    @Test
+    public void task14ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task14(null, 1));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parametersTask15")
+    public void task15Test(List<Animal> animals, int k, int l, int expected) {
+        int actual = Tasks.task15(animals, k, l);
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private static Stream<Arguments> parametersTask15() {
+        return Stream.of(
+            Arguments.of(List.of(a), 2, 150, 41188),
+            Arguments.of(List.of(a), 8, 22, 35037),
+            Arguments.of(List.of(), 2, 150,  0)
+        );
+    }
+
+    @Test
+    public void task15ExceptionTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Tasks.task15(null, 1, 2));
     }
 }
