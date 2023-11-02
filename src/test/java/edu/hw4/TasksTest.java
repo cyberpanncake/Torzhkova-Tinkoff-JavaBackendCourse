@@ -322,17 +322,22 @@ class TasksTest {
 
     @ParameterizedTest
     @MethodSource("parametersTask15")
-    public void task15Test(List<Animal> animals, int k, int l, int expected) {
-        int actual = Tasks.task15(animals, k, l);
+    public void task15Test(List<Animal> animals, int k, int l, Map<Animal.Type, Integer> expected) {
+        Map<Animal.Type, Integer> actual = Tasks.task15(animals, k, l);
         Assertions.assertEquals(expected,actual);
     }
 
     @SuppressWarnings("MagicNumber")
     private static Stream<Arguments> parametersTask15() {
         return Stream.of(
-            Arguments.of(List.of(a), 2, 150, 41225),
-            Arguments.of(List.of(a), 8, 22, 35074),
-            Arguments.of(List.of(), 2, 150,  0)
+            Arguments.of(List.of(a), 2, 150, Map.of(Animal.Type.CAT, 5000,
+                                                              Animal.Type.DOG, 35000,
+                                                              Animal.Type.SPIDER, 74,
+                                                              Animal.Type.FISH, 1,
+                                                              Animal.Type.BIRD, 1150)),
+            Arguments.of(List.of(a), 8, 22, Map.of(Animal.Type.DOG, 35000,
+                                                             Animal.Type.SPIDER, 74)),
+            Arguments.of(List.of(), 2, 150,  Map.of())
         );
     }
 

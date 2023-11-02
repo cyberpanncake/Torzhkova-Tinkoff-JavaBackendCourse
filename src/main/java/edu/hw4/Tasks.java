@@ -129,15 +129,14 @@ public class Tasks {
             .anyMatch(a -> a.type() == Animal.Type.DOG && a.height() > k);
     }
 
-    public static int task15(List<Animal> animals, int k, int l) {
+    public static Map<Animal.Type, Integer> task15(List<Animal> animals, int k, int l) {
         checkAnimals(animals);
         checkIntCharacteristic(k);
         checkIntCharacteristic(l);
         checkDiapason(k, l);
         return animals.stream()
             .filter(a -> a.age() >= k && a.age() <= l)
-            .mapToInt(Animal::weight)
-            .sum();
+            .collect(Collectors.groupingBy(Animal::type, Collectors.summingInt(Animal::weight)));
     }
 
     public static List<Animal> task16(List<Animal> animals) {
