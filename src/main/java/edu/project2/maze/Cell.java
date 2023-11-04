@@ -1,8 +1,7 @@
 package edu.project2.maze;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 public record Cell(int i, int j) {
     public Cell {
@@ -18,8 +17,8 @@ public record Cell(int i, int j) {
         return new Cell((int) (Math.random() * n), (int) (Math.random() * m));
     }
 
-    public static List<Cell> getNeighbours(Cell cell, int n, int m) {
-        List<Cell> neighbours = new ArrayList<>();
+    public static Set<Cell> getNeighbours(Cell cell, int n, int m) {
+        Set<Cell> neighbours = new HashSet<>();
         int i = cell.i();
         int j = cell.j();
         if (i > 0) {

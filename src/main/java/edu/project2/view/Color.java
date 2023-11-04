@@ -1,8 +1,9 @@
 package edu.project2.view;
 
 public enum Color {
-    RESET("\u001B[0m", "\u001B[0m"),
+    RESET("\u001B[0m"),
     BLACK("\u001B[40m", "\u001B[30m"),
+    BLUE("\u001B[44m", "\u001B[34m"),
     GREEN("\u001B[42m", "\u001B[32m"),
     RED("\u001B[41m", "\u001B[31m"),
     YELLOW("\u001B[43m", "\u001B[33m"),
@@ -14,6 +15,11 @@ public enum Color {
     Color(String background, String foreground) {
         this.background = background;
         this.foreground = foreground;
+    }
+
+    Color(String color) {
+        this.background = color;
+        this.foreground = color;
     }
 
     public String getBackground() {

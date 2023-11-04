@@ -1,6 +1,7 @@
 package edu.project2.maze.generation;
 
 import edu.project2.maze.Cell;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class DFSMazeGenerator extends AbstractAddingPathsMazeGenerator {
 
     private void dfsGenerate(Cell cell) {
         used[cell.i()][cell.j()] = true;
-        List<Cell> neighbours = Cell.getNeighbours(cell, n, m);
+        List<Cell> neighbours = new ArrayList<>(Cell.getNeighbours(cell, n, m));
         Collections.shuffle(neighbours);
         for (Cell neighbour : neighbours) {
             if (!used[neighbour.i()][neighbour.j()]) {
