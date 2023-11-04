@@ -49,7 +49,7 @@ public class Main {
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("Произошла непредвиденная ошибка ввода-вывода. Работа завершена");
+            LOGGER.error("Произошла непредвиденная ошибка ввода-вывода");
         } catch (NeedToStopException e) {
         }
         LOGGER.info("Работа завершена");
