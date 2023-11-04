@@ -7,7 +7,7 @@ public enum PixelType {
     START_CELL(Color.GREEN),
     END_CELL(Color.RED);
 
-    private Color color;
+    private final Color color;
 
     PixelType(Color color) {
         this.color = color;

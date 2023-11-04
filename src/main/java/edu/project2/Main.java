@@ -45,14 +45,14 @@ public class Main {
                     LOGGER.warn(WRONG_INPUT);
                 }
                 if (!"да".equalsIgnoreCase(input)) {
-                    throw new NeedToStopException();
+                    break;
                 }
             }
         } catch (IOException e) {
             LOGGER.error("Произошла непредвиденная ошибка ввода-вывода. Работа завершена");
         } catch (NeedToStopException e) {
-            LOGGER.info("Работа завершена");
         }
+        LOGGER.info("Работа завершена");
     }
 
     private static void setGenerator(BufferedReader reader) throws NeedToStopException {

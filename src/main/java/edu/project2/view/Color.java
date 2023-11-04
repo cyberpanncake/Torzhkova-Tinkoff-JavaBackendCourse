@@ -9,8 +9,8 @@ public enum Color {
     YELLOW("\u001B[43m", "\u001B[33m"),
     GRAY("\u001B[47m", "\u001B[37m");
 
-    private String background;
-    private String foreground;
+    private final String background;
+    private final String foreground;
 
     Color(String background, String foreground) {
         this.background = background;

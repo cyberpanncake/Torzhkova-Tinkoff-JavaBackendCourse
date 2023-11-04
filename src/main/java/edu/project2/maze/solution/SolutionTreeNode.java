@@ -3,8 +3,8 @@ package edu.project2.maze.solution;
 import edu.project2.maze.Cell;
 
 public class SolutionTreeNode {
-    private SolutionTreeNode parent;
-    private Cell value;
+    private final SolutionTreeNode parent;
+    private final Cell value;
 
     public SolutionTreeNode(SolutionTreeNode parent, Cell value) {
         if (value == null) {
