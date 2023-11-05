@@ -45,7 +45,7 @@ public class MazeSolverTest {
         for (int i = 0; i < 100; i++) {
             Cell startCell = Cell.getRandom(N1, M1);
             Cell endCell = Cell.getRandom(N1, M1);
-            Assertions.assertTrue(!solver.solve(normalMaze, startCell, endCell).isEmpty());
+            Assertions.assertFalse(solver.solve(normalMaze, startCell, endCell).isEmpty());
         }
     }
 
@@ -54,7 +54,7 @@ public class MazeSolverTest {
     void solveNoPathsMazeTest(IMazeSolver solver) {
         Cell startCell = new Cell(0, 0);
         Cell endCell = new Cell(0, 1);
-        Assertions.assertFalse(!solver.solve(mazeWithNoPaths, startCell, endCell).isEmpty());
+        Assertions.assertTrue(solver.solve(mazeWithNoPaths, startCell, endCell).isEmpty());
     }
 
     @ParameterizedTest
