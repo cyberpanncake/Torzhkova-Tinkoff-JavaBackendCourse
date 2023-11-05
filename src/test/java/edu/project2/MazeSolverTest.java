@@ -19,8 +19,6 @@ public class MazeSolverTest {
     private static int N1;
     private static int M1;
     private static Maze normalMaze;
-    private static int N2;
-    private static int M2;
     private static Maze mazeWithNoPaths;
 
     @BeforeAll
@@ -28,9 +26,7 @@ public class MazeSolverTest {
         N1 = 20;
         M1 = 50;
         normalMaze = new DFSMazeGenerator().generate(N1, M1);
-        N2 = 1;
-        M2 = 2;
-        mazeWithNoPaths = new Maze(N2, M2, Map.of(
+        mazeWithNoPaths = new Maze(1, 2, Map.of(
             new Cell(0, 0), Collections.emptySet(),
             new Cell(0, 1), Collections.emptySet()
         ));
