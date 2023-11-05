@@ -2,23 +2,10 @@ package edu.project2.maze.solution;
 
 import edu.project2.maze.Cell;
 
-public class SolutionTreeNode {
-    private final SolutionTreeNode parent;
-    private final Cell value;
-
-    public SolutionTreeNode(SolutionTreeNode parent, Cell value) {
+record SolutionTreeNode(SolutionTreeNode parent, Cell value) {
+    SolutionTreeNode {
         if (value == null) {
             throw new IllegalArgumentException("Значение узла не может быть null");
         }
-        this.parent = parent;
-        this.value = value;
-    }
-
-    public SolutionTreeNode getParent() {
-        return parent;
-    }
-
-    public Cell getValue() {
-        return value;
     }
 }

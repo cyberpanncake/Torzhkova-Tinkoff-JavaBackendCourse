@@ -25,7 +25,7 @@ public class BFSMazeSolver extends AbstractMazeSolver {
     private void bfs(List<SolutionTreeNode> wave) {
         List<SolutionTreeNode> nextWave = new ArrayList<>();
         for (SolutionTreeNode node : wave) {
-            Cell cell = node.getValue();
+            Cell cell = node.value();
             if (cell.equals(end)) {
                 endNode = node;
                 return;
@@ -43,9 +43,9 @@ public class BFSMazeSolver extends AbstractMazeSolver {
     }
 
     private void buildSolutionPath(SolutionTreeNode node) {
-        path.addFirst(node.getValue());
-        if (node.getParent() != null) {
-            buildSolutionPath(node.getParent());
+        path.addFirst(node.value());
+        if (node.parent() != null) {
+            buildSolutionPath(node.parent());
         }
     }
 }
