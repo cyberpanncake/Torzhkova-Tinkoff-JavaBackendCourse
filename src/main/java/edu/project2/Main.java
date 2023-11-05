@@ -111,7 +111,7 @@ public class Main {
             }
             setSolver(reader);
             findSolution(reader);
-            if (solution == null) {
+            if (solution.isEmpty()) {
                 LOGGER.warn("Для данных координат решения не существует");
             } else {
                 LOGGER.info("Найденное решение:" + MazeViewer.getMazeView(maze, solution));
