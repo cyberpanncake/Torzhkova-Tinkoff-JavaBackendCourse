@@ -11,13 +11,12 @@ public record Cell(int i, int j) {
     }
 
     public static Cell getRandom(int n, int m) {
-        if (n < 1 || m < 1) {
-            throw new IllegalArgumentException("Размеры лабиринта должны быть больше 0");
-        }
+        checkMazeSizes(n, m);
         return new Cell((int) (Math.random() * n), (int) (Math.random() * m));
     }
 
     public static Set<Cell> getNeighbours(Cell cell, int n, int m) {
+        checkMazeSizes(n, m);
         Set<Cell> neighbours = new HashSet<>();
         int i = cell.i();
         int j = cell.j();
@@ -34,5 +33,11 @@ public record Cell(int i, int j) {
             neighbours.add(new Cell(i, j + 1));
         }
         return neighbours;
+    }
+
+    private static void checkMazeSizes(int n, int m) {
+        if (n < 1 || m < 1) {
+            throw new IllegalArgumentException("Размеры лабиринта должны быть больше 0");
+        }
     }
 }

@@ -81,7 +81,7 @@ public class Main {
 
     private static void generateMaze(BufferedReader reader) throws NeedToStopException {
         maze = null;
-        LOGGER.info("Введите размеры лабиринта (2 цифры через пробел, размер не больше, чем 20x50):");
+        LOGGER.info("Введите размеры лабиринта (2 цифры через пробел, размер не больше, чем 50x20):");
         while (maze == null) {
             try {
                 String[] input = getInput(reader).split(" ");

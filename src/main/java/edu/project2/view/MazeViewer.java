@@ -12,14 +12,13 @@ public class MazeViewer {
     }
 
     public static String getMazeView(Maze maze) {
+        checkMaze(maze);
         PixelType[][] pixels = getPixels(maze);
         return render(pixels);
     }
 
     public static String getMazeView(Maze maze, List<Cell> path) {
-        if (maze == null) {
-            throw new IllegalArgumentException("Лабиринт не может быть null");
-        }
+        checkMaze(maze);
         if (path == null) {
             throw new IllegalArgumentException("Путь не может быть null");
         }
@@ -28,6 +27,12 @@ public class MazeViewer {
             drawPath(pixels, path);
         }
         return render(pixels);
+    }
+
+    private static void checkMaze(Maze maze) {
+        if (maze == null) {
+            throw new IllegalArgumentException("Лабиринт не может быть null");
+        }
     }
 
     private static PixelType[][] getPixels(Maze maze) {
@@ -73,7 +78,7 @@ public class MazeViewer {
     }
 
     private static boolean checkIfStartIsEnd(PixelType[][] pixels, List<Cell> path) {
-        if (path.getFirst() == path.getLast()) {
+        if (path.getFirst().equals(path.getLast())) {
             int i = path.getFirst().i() * CELL_PIXEL_SIZE + 1;
             int j = path.getFirst().j() * CELL_PIXEL_SIZE + 1;
             pixels[i][j] = PixelType.START_CELL;
@@ -107,7 +112,7 @@ public class MazeViewer {
         }
     }
 
-    private static String render(PixelType[][] pixels) {
+    public static String render(PixelType[][] pixels) {
         int n = pixels.length;
         int m = pixels[0].length;
         String resetColor = Color.RESET.getBackground();
