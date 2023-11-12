@@ -1,10 +1,8 @@
 package edu.hw5;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,7 +10,7 @@ public class Task3 {
     private Task3() {
     }
 
-    private static Map<String, String> patterns = Map.of(
+    private static final Map<String, String> PATTERNS = Map.of(
         "\\d{4}-\\d{2}-\\d{2}", "yyyy-MM-dd",
         "\\d{4}-\\d{1,2}-\\d{1,2}", "yyyy-M-d",
         "\\d{1,2}/\\d{1,2}/\\d{4}", "d/M/yyyy",
@@ -25,9 +23,9 @@ public class Task3 {
         }
         LocalDate result = null;
         try {
-            for (String patten : patterns.keySet()) {
+            for (String patten : PATTERNS.keySet()) {
                 if (string.matches(patten)) {
-                    result = LocalDate.parse(string, DateTimeFormatter.ofPattern(patterns.get(patten)));
+                    result = LocalDate.parse(string, DateTimeFormatter.ofPattern(PATTERNS.get(patten)));
                     break;
                 }
             }
