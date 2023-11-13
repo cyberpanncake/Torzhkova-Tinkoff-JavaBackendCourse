@@ -20,6 +20,7 @@ class Task6Test {
         return Stream.of(
             Arguments.of("achfdbaabgabcaabg", "abc", true),
             Arguments.of("substring", "string", true),
+            Arguments.of("aacbxc", "abc", true),
             Arguments.of("abacaba", "x", false),
             Arguments.of("", "abc", false),
             Arguments.of("abc", "", true)

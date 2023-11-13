@@ -8,6 +8,6 @@ public class Task5 {
         if (number == null) {
             throw new IllegalArgumentException("Строка не должна быть null");
         }
-        return number.matches("[А-Я]\\d{3}[А-Я]{2}\\d{3}");
+        return number.matches("[АВЕКМНОРСТУХ]\\d{3}[АВЕКМНОРСТУХ]{2}\\d{2,3}");
     }
 }

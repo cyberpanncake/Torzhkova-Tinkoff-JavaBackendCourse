@@ -12,7 +12,7 @@ public class Task6 {
         if (string == null || substring == null) {
             throw new IllegalArgumentException("Входные строки не должны быть null");
         }
-        Pattern pattern = Pattern.compile(substring);
+        Pattern pattern = Pattern.compile(String.join(".*", substring.split("")));
         Matcher matcher = pattern.matcher(string);
         return matcher.find();
     }
