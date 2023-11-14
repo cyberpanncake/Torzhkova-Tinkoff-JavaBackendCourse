@@ -1,6 +1,6 @@
 package edu.hw3.task6;
 
-public record Stock(int id, double price) implements Comparable {
+public record Stock(int id, double price) implements Comparable<Stock> {
 
     public Stock {
         if (price < 0) {
@@ -9,7 +9,7 @@ public record Stock(int id, double price) implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        return (int) (this.price - ((Stock) o).price);
+    public int compareTo(Stock o) {
+        return (int) (this.price - o.price);
     }
 }

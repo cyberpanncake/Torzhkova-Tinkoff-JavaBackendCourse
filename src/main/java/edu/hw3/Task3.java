@@ -10,11 +10,8 @@ public class Task3<T> {
     public Map<T, Integer> freqDict(List<T> list) {
         Map<T, Integer> result = new HashMap<>();
         for (T obj : list) {
-            if (result.containsKey(obj)) {
-                result.put(obj, result.get(obj) + 1);
-            } else {
-                result.put(obj, 1);
-            }
+            result.putIfAbsent(obj, 0);
+            result.put(obj, result.get(obj) + 1);
         }
         return Collections.unmodifiableMap(result);
     }

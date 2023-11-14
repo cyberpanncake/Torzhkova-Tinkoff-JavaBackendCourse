@@ -20,14 +20,14 @@ class Task5Test {
     private static Stream<Arguments> names() {
         return Stream.of(
             Arguments.of(new String[] {"John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes"}, "ASC",
-                new Task5.Contact[] {new Task5.Contact("Thomas Aquinas"),
-                    new Task5.Contact("Rene Descartes"),
-                    new Task5.Contact("David Hume"),
-                    new Task5.Contact("John Locke")}),
+                new Task5.Contact[] {Task5.Contact.of("Thomas Aquinas"),
+                    Task5.Contact.of("Rene Descartes"),
+                    Task5.Contact.of("David Hume"),
+                    Task5.Contact.of("John Locke")}),
             Arguments.of(new String[] {"Paul Erdos", "Leonhard Euler", "Carl Gauss"}, "DESC",
-                new Task5.Contact[] {new Task5.Contact("Carl Gauss"),
-                    new Task5.Contact("Leonhard Euler"),
-                    new Task5.Contact("Paul Erdos")}),
+                new Task5.Contact[] {Task5.Contact.of("Carl Gauss"),
+                    Task5.Contact.of("Leonhard Euler"),
+                    Task5.Contact.of("Paul Erdos")}),
             Arguments.of(new String[0], "DESC", new Task5.Contact[0]),
             Arguments.of(null, "DESC", new Task5.Contact[0])
         );
