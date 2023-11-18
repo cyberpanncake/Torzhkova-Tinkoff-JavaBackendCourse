@@ -50,8 +50,8 @@ public class PrintUtils {
         StringBuilder result = new StringBuilder();
         String[][] lines = rowToLines(lengths, row);
         int n = lines.length;
-        for (int i = 0; i < n; i++) {
-            result.append("│").append(String.join("│", lines[i])).append("│\n");
+        for (String[] strings : lines) {
+            result.append("│").append(String.join("│", strings)).append("│\n");
         }
         if (notLast) {
             String line = String.join(isHeader ? "╪" : "┼", Arrays.stream(lengths)
