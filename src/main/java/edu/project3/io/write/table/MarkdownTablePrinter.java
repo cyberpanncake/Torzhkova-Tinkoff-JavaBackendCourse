@@ -18,13 +18,13 @@ public class MarkdownTablePrinter extends TablePrinter {
         StringBuilder result = new StringBuilder();
         String[][] lines = rowToLines(lengths, row);
         for (String[] strings : lines) {
-            result.append("|").append(String.join("|", strings)).append("|\n");
+            result.append("|").append(String.join("|", strings)).append("|").append("\n");
         }
         if (isHeader) {
             String line = String.join("|:", Arrays.stream(lengths)
                 .mapToObj(l -> ("-").repeat(l + 1))
                 .toList());
-            result.append("|:").append(line).append("|\n");
+            result.append("|:").append(line).append("|").append("\n");
         }
         return result.toString();
     }

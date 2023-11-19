@@ -1,6 +1,8 @@
 package edu.project3.io.write.table;
 
 public class AdocTablePrinter extends TablePrinter {
+    private static final String TABLE_LINE = "|===\n";
+
     @Override
     protected String printFirstLine(int[] lengths) {
         return "";
@@ -8,7 +10,7 @@ public class AdocTablePrinter extends TablePrinter {
 
     @Override
     protected String printLastLine(int[] lengths) {
-        return "|===\n";
+        return TABLE_LINE;
     }
 
     @Override
@@ -17,7 +19,7 @@ public class AdocTablePrinter extends TablePrinter {
         if (isHeader) {
             String cols = String.join(",", "<".repeat(row.length).split(""));
             result.append("[options=\"header\", cols=\"").append(cols).append("\"]\n")
-                .append("|===\n");
+                .append(TABLE_LINE);
         }
         String[][] lines = rowToLines(lengths, row);
         for (String[] strings : lines) {
