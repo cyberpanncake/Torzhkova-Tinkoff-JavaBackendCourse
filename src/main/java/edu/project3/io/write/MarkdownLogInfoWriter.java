@@ -6,7 +6,7 @@ import edu.project3.io.write.table.Table;
 public class MarkdownLogInfoWriter extends LogInfoWriter {
     @Override
     protected String getExtension() {
-        return Extension.MARKDOWN.getName();
+        return Extension.MARKDOWN.getExt();
     }
 
     @Override

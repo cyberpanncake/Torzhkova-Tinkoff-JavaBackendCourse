@@ -13,7 +13,7 @@ public record Config(String path, LocalDateTime startDate, LocalDateTime endDate
         this.path = path;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.extension = extension == null ? Extension.MARKDOWN : extension;
+        this.extension = extension == null ? Extension.TXT : extension;
     }
 
     @SuppressWarnings("InnerAssignment")

@@ -6,7 +6,7 @@ import edu.project3.io.write.table.TxtTablePrinter;
 public class TxtLogInfoWriter extends LogInfoWriter {
     @Override
     protected String getExtension() {
-        return Extension.TXT.getName();
+        return Extension.TXT.getExt();
     }
 
     @Override

@@ -21,14 +21,14 @@ public abstract class LogInfoWriter {
             Path file = Paths.get(fullFilename);
             Files.createFile(file);
             Files.write(file, formattedText.getBytes());
+            return file.toAbsolutePath().toString();
         } catch (IOException e) {
             throw new IOException("Не удалось записать статистику логов в файл");
         }
-        return fullFilename;
     }
 
     private String defaultFullFilename() {
-        return DEFAULT_PATH + "\\" + "log_stat_"
+        return DEFAULT_PATH + "/" + "log_stat_"
             + LocalDateTime.now().format(Formatter.FILE_DATE) + "." + getExtension();
     }
 
@@ -38,7 +38,7 @@ public abstract class LogInfoWriter {
         StringBuilder result = new StringBuilder();
         for (Map.Entry<String, Table> entry : infos.entrySet()) {
             result.append(printTitle(entry.getKey()))
-                .append("\n")
+                .append("\n\n")
                 .append(printTable(entry.getValue()))
                 .append("\n");
         }

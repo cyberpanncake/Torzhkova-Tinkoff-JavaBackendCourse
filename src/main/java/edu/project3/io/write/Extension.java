@@ -7,19 +7,19 @@ public enum Extension {
     ADOC("adoc"),
     TXT("txt");
 
-    private final String name;
+    private final String ext;
 
     Extension(String extension) {
-        this.name = extension;
+        this.ext = extension;
     }
 
-    public String getName() {
-        return name;
+    public String getExt() {
+        return ext;
     }
 
     public static Extension parse(String extentionName) throws IllegalConfigException {
         for (Extension extension : Extension.values()) {
-            if (extension.name.toLowerCase().equals(extentionName)) {
+            if (extension.name().toLowerCase().equals(extentionName)) {
                 return extension;
             }
         }
