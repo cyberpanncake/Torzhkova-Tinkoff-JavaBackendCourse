@@ -1,15 +1,15 @@
-package edu.project3.utils;
+package edu.project3.io.write.table;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class PrintUtils {
+public class TxtTablePrinter extends TablePrinter {
 
-    private PrintUtils() {
-    }
-
-    public static String printTable(String[] headers, List<String[]> rows) {
+    @Override
+    public String printTable(Table table) {
+        String[] headers = table.headers();
+        List<String[]> rows = table.rows();
         StringBuilder result = new StringBuilder();
         int[] lengths = countLengths(headers, rows);
         result.append(printFirstLine(lengths));
@@ -21,7 +21,7 @@ public class PrintUtils {
         return result.toString();
     }
 
-    private static int[] countLengths(String[] headers, List<String[]> rows) {
+    private int[] countLengths(String[] headers, List<String[]> rows) {
         int n = headers.length;
         int[] lengths = new int[n];
         for (int i = 0; i < n; i++) {
@@ -34,19 +34,19 @@ public class PrintUtils {
         return lengths;
     }
 
-    private static String printFirstLine(int[] lengths) {
+    private String printFirstLine(int[] lengths) {
         return "┌" + String.join("┬", Arrays.stream(lengths)
                 .mapToObj(l -> "─".repeat(l + 2))
                 .toList()) + "┐\n";
     }
 
-    private static String printLastLine(int[] lengths) {
+    private String printLastLine(int[] lengths) {
         return "└" + String.join("┴", Arrays.stream(lengths)
                 .mapToObj(l -> "─".repeat(l + 2))
                 .toList()) + "┘\n";
     }
 
-    private static String printRow(int[] lengths, String[] row, boolean notLast, boolean isHeader) {
+    private String printRow(int[] lengths, String[] row, boolean notLast, boolean isHeader) {
         StringBuilder result = new StringBuilder();
         String[][] lines = rowToLines(lengths, row);
         int n = lines.length;
@@ -62,7 +62,7 @@ public class PrintUtils {
         return result.toString();
     }
 
-    private static String[][] rowToLines(int[] lengths, String[] row) {
+    private String[][] rowToLines(int[] lengths, String[] row) {
         int n = lengths.length;
         String[][] tabRow = new String[n][];
         int maxL = 1;

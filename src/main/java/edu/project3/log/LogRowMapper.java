@@ -1,6 +1,5 @@
 package edu.project3.log;
 
-import edu.project3.analysis.info.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -9,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class LogRowMapper {
     private static final String LOG_PATTERN =
-        "^(\\d{1,3}(?:[.]\\d{1,3}){3}) - (.*?) \\Q[\\E(.+)\\Q]\\E \"([A-Z]+)"
+        "^(.*?) - (.*?) \\Q[\\E(.+)\\Q]\\E \"([A-Z]+)"
         + " ([-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])"
         + " (.*?)\" (\\d{3}) (\\d+) \"(.*?)\" \"(.*?)\"(?: \"(.*?)\")?$";
     private static final DateTimeFormatter DATE_TIME_FORMAT

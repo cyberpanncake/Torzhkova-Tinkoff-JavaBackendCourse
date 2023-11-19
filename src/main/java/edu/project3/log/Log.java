@@ -1,6 +1,5 @@
 package edu.project3.log;
 
-import edu.project3.analysis.info.HttpResponse;
 import java.time.LocalDateTime;
 
 public record Log(
