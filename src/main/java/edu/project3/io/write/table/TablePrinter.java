@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class TablePrinter {
-    //public abstract String printTable(Table table);
+
     public String printTable(Table table) {
         String[] headers = table.headers();
         List<String[]> rows = table.rows();

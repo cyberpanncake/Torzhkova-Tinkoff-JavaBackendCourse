@@ -21,15 +21,15 @@ public record Config(String path, LocalDateTime startDate, LocalDateTime endDate
     @SuppressWarnings("InnerAssignment")
     public static Config parseArgs(String[] args) throws IllegalConfigException {
         String path;
-        if ("--path".equals(args[0])) {
-            path = args[1];
-        } else {
-            throw new IllegalConfigException("Не задан путь к логам");
-        }
         LocalDate startDate = null;
         LocalDate endDate = null;
         Extension extension = null;
         try {
+            if ("--path".equals(args[0])) {
+                path = args[1];
+            } else {
+                throw new IllegalConfigException("Не задан путь к логам");
+            }
             for (int i = 2; i < args.length; i += 2) {
                 String argValue = args[i + 1];
                 switch (args[i]) {

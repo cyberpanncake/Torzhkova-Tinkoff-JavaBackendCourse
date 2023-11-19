@@ -71,7 +71,7 @@ public class LogReader {
     }
 
     @SuppressWarnings("MagicNumber")
-    public static Stream<String> getLogStreamFromUrl(String url, List<String> paths)
+    private static Stream<String> getLogStreamFromUrl(String url, List<String> paths)
         throws URISyntaxException, IOException, InterruptedException {
         paths.add(url);
         HttpRequest request = HttpRequest.newBuilder().uri(new URI(url)).GET().build();
@@ -82,7 +82,7 @@ public class LogReader {
         return Arrays.stream(response.body().split("\n"));
     }
 
-    public static Stream<String> getLogStreamFromGlob(String glob, List<String> paths) throws IOException {
+    private static Stream<String> getLogStreamFromGlob(String glob, List<String> paths) throws IOException {
         List<Path> matches = new ArrayList<>();
         String pattern = "glob:" + glob;
         Path current = Paths.get("");

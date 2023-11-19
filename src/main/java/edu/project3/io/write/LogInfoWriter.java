@@ -19,7 +19,9 @@ public abstract class LogInfoWriter {
         String formattedText = createFormattedText(infos);
         try {
             Path file = Paths.get(fullFilename);
-            Files.createFile(file);
+            if (!Files.exists(file)) {
+                Files.createFile(file);
+            }
             Files.write(file, formattedText.getBytes());
             return file.toAbsolutePath().toString();
         } catch (IOException e) {
@@ -28,7 +30,7 @@ public abstract class LogInfoWriter {
     }
 
     private String defaultFullFilename() {
-        return DEFAULT_PATH + "/" + "log_stat_"
+        return DEFAULT_PATH + "/" + "logs_stat_"
             + LocalDateTime.now().format(Formatter.FILE_DATE) + "." + getExtension();
     }
 
