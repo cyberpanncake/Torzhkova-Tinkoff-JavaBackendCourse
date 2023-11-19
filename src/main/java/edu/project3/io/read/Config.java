@@ -9,11 +9,13 @@ import java.time.format.DateTimeParseException;
 public record Config(String path, LocalDateTime startDate, LocalDateTime endDate, Extension extension) {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Config(String path, LocalDateTime startDate, LocalDateTime endDate, Extension extension) {
-        this.path = path;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.extension = extension == null ? Extension.TXT : extension;
+    public Config(String path, LocalDate startDate, LocalDate endDate, Extension extension) {
+        this(
+            path,
+            startDate == null ? LocalDateTime.MIN : startDate.atStartOfDay(),
+            endDate == null ? LocalDateTime.MAX : endDate.plusDays(1).atStartOfDay().minusNanos(1),
+            extension == null ? Extension.TXT : extension
+        );
     }
 
     @SuppressWarnings("InnerAssignment")
@@ -47,8 +49,8 @@ public record Config(String path, LocalDateTime startDate, LocalDateTime endDate
         }
         return new Config(
             path,
-            startDate == null ? LocalDateTime.MIN : startDate.atStartOfDay(),
-            endDate == null ? LocalDateTime.MAX : endDate.plusDays(1).atStartOfDay().minusNanos(1),
+            startDate,
+            endDate,
             extension);
     }
 
