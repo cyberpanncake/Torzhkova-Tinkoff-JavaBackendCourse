@@ -179,13 +179,15 @@ class TablePrinterTest {
             ),
             Arguments.of(
                 new AdocTablePrinter(),
-                "[options=\"header\", cols=\"<,<,<\"]\n" +
-                    "|===\n" +
-                    "| Код | Имя          | Количество \n" +
-                    "| 304 | Not Modified | 11         \n" +
-                    "| 404 | Not Found    | 6          \n" +
-                    "| 200 | OK           | 3          \n" +
-                    "|===\n"
+                """
+                    [options="header", cols="<,<,<"]
+                    |===
+                    | Код | Имя          | Количество\s
+                    | 304 | Not Modified | 11        \s
+                    | 404 | Not Found    | 6         \s
+                    | 200 | OK           | 3         \s
+                    |===
+                    """
             )
         );
     }

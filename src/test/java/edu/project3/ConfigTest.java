@@ -24,7 +24,7 @@ class ConfigTest {
     }
 
     @Test
-    void parseArgsExceptionTest() throws IllegalConfigException {
+    void parseArgsExceptionTest() {
         String[] args = new String[] { "--path" };
         Assertions.assertThrows(IllegalConfigException.class, () -> Config.parseArgs(args));
     }

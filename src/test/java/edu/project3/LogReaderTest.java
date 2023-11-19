@@ -16,10 +16,9 @@ import java.util.List;
 class LogReaderTest {
     private static final String LOGS_PATH = "src/main/resources/project3/logs.txt";
     private static final String BAD_LOGS_PATH = "src/main/resources/project3/bad_logs.txt";
-    private static final int TOP_SIZE = 3;
     private final Config config;
 
-    LogReaderTest() throws IOException {
+    LogReaderTest() {
         this.config = new Config(LOGS_PATH, (LocalDate) null, null, null);
     }
 
