@@ -16,6 +16,7 @@ public record Config(String path, LocalDateTime startDate, LocalDateTime endDate
         this.extension = extension == null ? Extension.MARKDOWN : extension;
     }
 
+    @SuppressWarnings("InnerAssignment")
     public static Config parseArgs(String[] args) throws IllegalConfigException {
         String path;
         if ("--path".equals(args[0])) {
@@ -28,25 +29,12 @@ public record Config(String path, LocalDateTime startDate, LocalDateTime endDate
         Extension extension = null;
         try {
             for (int i = 2; i < args.length; i += 2) {
-                String argName = args[i];
                 String argValue = args[i + 1];
-                if ("--from".equals(argName)) {
-                    if (startDate != null) {
-                        throw new IllegalConfigException("Начальная дата уже задана");
-                    }
-                    startDate = LocalDate.parse(argValue, DATE_FORMAT);
-                } else if ("--to".equals(argName)) {
-                    if (endDate != null) {
-                        throw new IllegalConfigException("Конечная дата уже задана");
-                    }
-                    endDate = LocalDate.parse(argValue, DATE_FORMAT);
-                } else if ("--format".equals(argName)) {
-                    if (extension != null) {
-                        throw new IllegalConfigException("Формат вывода уже задан");
-                    }
-                    extension = Extension.parse(argValue);
-                } else {
-                    throw new IllegalConfigException("Неверное имя аргумента");
+                switch (args[i]) {
+                    case "--from" -> startDate = parseStartDate(startDate, argValue);
+                    case "--to" -> endDate = parseEndDate(endDate, argValue);
+                    case "--format" -> extension = parseExtension(extension, argValue);
+                    case null, default -> throw new IllegalConfigException("Неверное имя аргумента");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -62,5 +50,26 @@ public record Config(String path, LocalDateTime startDate, LocalDateTime endDate
             startDate == null ? LocalDateTime.MIN : startDate.atStartOfDay(),
             endDate == null ? LocalDateTime.MAX : endDate.plusDays(1).atStartOfDay().minusNanos(1),
             extension);
+    }
+
+    private static LocalDate parseStartDate(LocalDate startDate, String argValue) throws IllegalConfigException {
+        if (startDate != null) {
+            throw new IllegalConfigException("Начальная дата уже задана");
+        }
+        return LocalDate.parse(argValue, DATE_FORMAT);
+    }
+
+    private static LocalDate parseEndDate(LocalDate endDate, String argValue) throws IllegalConfigException {
+        if (endDate != null) {
+            throw new IllegalConfigException("Конечная дата уже задана");
+        }
+        return LocalDate.parse(argValue, DATE_FORMAT);
+    }
+
+    private static Extension parseExtension(Extension extension, String argValue) throws IllegalConfigException {
+        if (extension != null) {
+            throw new IllegalConfigException("Формат вывода уже задан");
+        }
+        return Extension.parse(argValue);
     }
 }

@@ -86,9 +86,9 @@ public class LogReader {
         List<Path> matches = new ArrayList<>();
         String pattern = "glob:" + glob;
         Path current = Paths.get("");
-        FileVisitor<Path> matcherVisitor = new SimpleFileVisitor<Path>() {
+        FileVisitor<Path> matcherVisitor = new SimpleFileVisitor<>() {
             @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attribs) throws IOException {
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attribs) {
                 PathMatcher matcher = FileSystems.getDefault().getPathMatcher(pattern);
                 if (matcher.matches(file)) {
                     matches.add(file);

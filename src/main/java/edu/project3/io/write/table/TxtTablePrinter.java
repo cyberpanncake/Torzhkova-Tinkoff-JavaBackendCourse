@@ -49,7 +49,6 @@ public class TxtTablePrinter extends TablePrinter {
     private String printRow(int[] lengths, String[] row, boolean notLast, boolean isHeader) {
         StringBuilder result = new StringBuilder();
         String[][] lines = rowToLines(lengths, row);
-        int n = lines.length;
         for (String[] strings : lines) {
             result.append("│").append(String.join("│", strings)).append("│\n");
         }
