@@ -25,7 +25,10 @@ class Task2Test {
             Arguments.of(3, 6),
             Arguments.of(4, 24),
             Arguments.of(10, 3628800),
-            Arguments.of(12, 479001600)
+            Arguments.of(12, 479001600),
+            Arguments.of(13, 6227020800L),
+            Arguments.of(19, 121645100408832000L),
+            Arguments.of(20, 2432902008176640000L)
         );
     }
 

@@ -4,8 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Task1 {
 
-    private Task1() {
-    }
+    private Task1() {}
 
     public static int incrementCounter(int threadCount) throws InterruptedException {
         if (threadCount < 1) {

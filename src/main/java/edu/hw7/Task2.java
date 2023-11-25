@@ -1,11 +1,10 @@
 package edu.hw7;
 
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class Task2 {
 
-    private Task2() {
-    }
+    private Task2() {}
 
     public static long factorial(int n) {
         if (n < 0) {
@@ -14,6 +13,6 @@ public class Task2 {
         if (n == 0) {
             return 1;
         }
-        return IntStream.range(1, n + 1).parallel().reduce((x, y) -> x * y).orElse(0);
+        return LongStream.range(1, n + 1).parallel().reduce((x, y) -> x * y).orElse(0);
     }
 }
