@@ -8,6 +8,7 @@ public class Task4 {
 
     private Task4() {}
 
+    @SuppressWarnings("MagicNumber")
     public static double pi(long n) {
         checkN(n);
         long circleCount = 0;
@@ -37,9 +38,7 @@ public class Task4 {
         for (int i = 0; i < threadsCount; i++) {
             int threadI = i;
             long threadN = n / threadsCount + (i == threadsCount - 1 ? n % threadsCount : 0);
-            threads[i] = new Thread(() -> {
-                answer[threadI] = pi(threadN);
-            });
+            threads[i] = new Thread(() -> answer[threadI] = pi(threadN));
         }
         for (Thread thread : threads) {
             thread.start();
