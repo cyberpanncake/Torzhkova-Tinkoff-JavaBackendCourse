@@ -9,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 public class Task3Test {
@@ -16,6 +17,7 @@ public class Task3Test {
     @ParameterizedTest
     @MethodSource("db")
     void personDatabaseTest(AbstractPersonDatabase db) throws InterruptedException {
+        AtomicBoolean result = new AtomicBoolean(true);
         List<Person> persons = List.of(
             new Person(1, "name1", "address1", "phoneNumber2"),
             new Person(2, "name1", "address2", "phoneNumber1"),
@@ -26,13 +28,13 @@ public class Task3Test {
                 db.add(person);
             }
         });
-        Thread findingThread1 = new Thread(() -> findAttributesAssert(db, persons));
+        Thread findingThread1 = new Thread(() -> findAttributesAssert(db, persons,result));
         Thread deletingThread = new Thread(() -> {
             for (Person person : persons) {
                 db.delete(person.id());
             }
         });
-        Thread findingThread2 = new Thread(() -> findAttributesAssert(db, persons));
+        Thread findingThread2 = new Thread(() -> findAttributesAssert(db, persons, result));
 
         addingThread.start();
         findingThread1.start();
@@ -43,15 +45,35 @@ public class Task3Test {
         findingThread1.join();
         deletingThread.join();
         findingThread2.join();
+
+        Assertions.assertTrue(result.get());
     }
 
-    private void findAttributesAssert(AbstractPersonDatabase db, List<Person> persons) {
+    private void findAttributesAssert(AbstractPersonDatabase db, List<Person> persons, AtomicBoolean result) {
         for (Person person : persons) {
-            boolean findName = db.findByName(person.name()).contains(person);
-            boolean findAddress = db.findByAddress(person.address()).contains(person);
-            boolean findPhone = db.findByPhone(person.phoneNumber()).contains(person);
-            Assertions.assertTrue(findName == findAddress && findAddress == findPhone);
+            if (db instanceof SynchronizedPersonDatabase) {
+                synchronized (db) {
+                    checkAttributes(db, person, result);
+                }
+            } else {
+                ((ReadWriteLockPersonDatabase) db).getLock().readLock().lock();
+                try {
+                    checkAttributes(db, person, result);
+                } finally {
+                    ((ReadWriteLockPersonDatabase) db).getLock().readLock().unlock();
+                }
+            }
         }
+    }
+
+    private void checkAttributes(AbstractPersonDatabase db, Person person, AtomicBoolean result) {
+        List<Person> lName = db.findByName(person.name());
+        boolean findName = lName != null && lName.contains(person);
+        List<Person> lAddress = db.findByAddress(person.address());
+        boolean findAddress = lAddress != null && lAddress.contains(person);
+        List<Person> lPhone = db.findByPhone(person.phoneNumber());
+        boolean findPhone = lPhone != null && lPhone.contains(person);
+        result.set(result.get() && (findName == findAddress && findAddress == findPhone));
     }
 
     @SuppressWarnings("MagicNumber")

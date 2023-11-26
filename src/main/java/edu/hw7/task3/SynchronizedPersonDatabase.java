@@ -15,9 +15,11 @@ public class SynchronizedPersonDatabase extends AbstractPersonDatabase {
     @Override
     public synchronized void delete(int id) {
         Person person = persons.remove(id);
-        deletePersonInReversedKeyMap(person.name(), person, names);
-        deletePersonInReversedKeyMap(person.address(), person, addresses);
-        deletePersonInReversedKeyMap(person.phoneNumber(), person, phoneNumbers);
+        if (person != null) {
+            deletePersonInReversedKeyMap(person.name(), person, names);
+            deletePersonInReversedKeyMap(person.address(), person, addresses);
+            deletePersonInReversedKeyMap(person.phoneNumber(), person, phoneNumbers);
+        }
     }
 
     @Override

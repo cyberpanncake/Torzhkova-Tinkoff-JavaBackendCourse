@@ -9,6 +9,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class ReadWriteLockPersonDatabase extends AbstractPersonDatabase {
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
+    public ReadWriteLock getLock() {
+        return lock;
+    }
+
     @Override
     protected void addPerson(Person person) {
         lock.writeLock().lock();
@@ -27,9 +31,11 @@ public class ReadWriteLockPersonDatabase extends AbstractPersonDatabase {
         lock.writeLock().lock();
         try {
             Person person = persons.remove(id);
-            deletePersonInReversedKeyMap(person.name(), person, names);
-            deletePersonInReversedKeyMap(person.address(), person, addresses);
-            deletePersonInReversedKeyMap(person.phoneNumber(), person, phoneNumbers);
+            if (person != null) {
+                deletePersonInReversedKeyMap(person.name(), person, names);
+                deletePersonInReversedKeyMap(person.address(), person, addresses);
+                deletePersonInReversedKeyMap(person.phoneNumber(), person, phoneNumbers);
+            }
         } finally {
             lock.writeLock().unlock();
         }
