@@ -80,10 +80,10 @@ class Task4Test {
 
     private String getResult(long time, double expected, double actual) {
         return """
-            Время работы:               %d с %d мс %d нс
+            Время работы:               %d с %d мс %d мкс %d нс
             Абсолютная погрешность:     %.15f
             Относительная погрешность:  %.15f
-            """.formatted(time / 1_000_000, time / 1_000 % 1_000 , time % 1_000,
+            """.formatted(time / 1_000_000_000, time / 1_000_000 % 1_000, time / 1_000 % 1_000, time % 1_000,
             absE(expected, actual), relE(expected, actual));
     }
 
