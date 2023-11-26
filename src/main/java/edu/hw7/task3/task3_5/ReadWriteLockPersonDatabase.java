@@ -4,9 +4,10 @@ import edu.hw7.task3.AbstractPersonDatabase;
 import edu.hw7.task3.Person;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteLockPersonDatabase extends AbstractPersonDatabase {
-    private ReadWriteLock lock;
+    private ReadWriteLock lock = new ReentrantReadWriteLock();
 
     @Override
     protected void addPerson(Person person) {
