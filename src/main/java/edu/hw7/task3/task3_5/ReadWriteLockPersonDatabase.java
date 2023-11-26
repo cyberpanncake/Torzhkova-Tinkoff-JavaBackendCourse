@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteLockPersonDatabase extends AbstractPersonDatabase {
-    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private ReadWriteLock final lock = new ReentrantReadWriteLock();
 
     @Override
     protected void addPerson(Person person) {
