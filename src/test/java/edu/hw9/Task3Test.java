@@ -5,7 +5,6 @@ import edu.project2.maze.Cell;
 import edu.project2.maze.Maze;
 import edu.project2.maze.generation.DFSMazeGenerator;
 import edu.project2.maze.solution.DFSMazeSolver;
-import edu.project2.maze.solution.IMazeSolver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
