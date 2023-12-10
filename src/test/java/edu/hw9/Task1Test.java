@@ -1,5 +1,8 @@
-package edu.hw9.task1;
+package edu.hw9;
 
+import edu.hw9.task1.Metric;
+import edu.hw9.task1.MetricName;
+import edu.hw9.task1.StatsCollector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;

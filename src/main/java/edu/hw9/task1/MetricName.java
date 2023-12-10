@@ -15,10 +15,6 @@ public enum MetricName {
         this.function = function;
     }
 
-    public Function<double[], Double> function() {
-        return function;
-    }
-
     public Metric count(double[] data) {
         return new Metric(this, function.apply(data));
     }
