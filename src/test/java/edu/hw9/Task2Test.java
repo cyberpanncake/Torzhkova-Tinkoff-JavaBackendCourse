@@ -11,7 +11,8 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class Task2Test {
     @TempDir
@@ -38,24 +39,24 @@ class Task2Test {
 
     @Test
     void getDirectoriesWithCountFilesBiggerThanTest() {
-        List<Path> expected = List.of(
+        Set<Path> expected = Set.of(
             root,
             root.resolve("d1"),
             root.resolve("d2"));
-        List<Path> actual = Task2.getDirectoriesWithCountFilesBiggerThan(root, 2);
+        Set<Path> actual = new HashSet<>(Task2.getDirectoriesWithCountFilesBiggerThan(root, 2));
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     void getFilesMatchFilterTest() {
-        List<Path> expected = List.of(
+        Set<Path> expected = Set.of(
             root.resolve("f1.txt"),
             root.resolve("d1").resolve("f11.png"),
             root.resolve("d2").resolve("f2.png"));
         AbstractPathFilter filter = PathFilter.largerThan(10)
             .and(new GlobMatchesFilter("*.txt"))
             .or(new GlobMatchesFilter("*.png"));
-        List<Path> actual = Task2.getFilesMatchFilter(root, filter);
+        Set<Path> actual = new HashSet<>(Task2.getFilesMatchFilter(root, filter));
         Assertions.assertEquals(expected, actual);
     }
 }
