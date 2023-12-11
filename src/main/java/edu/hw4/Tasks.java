@@ -1,10 +1,13 @@
 package edu.hw4;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -46,36 +49,30 @@ public class Tasks {
 
     public static Animal.Sex task5(List<Animal> animals) {
         checkAnimals(animals);
-        try {
-            return animals.stream()
-                .collect(Collectors.groupingBy(Animal::sex, Collectors.summingInt(a -> 1)))
-                .entrySet().stream()
-                .max(Comparator.comparingInt(Map.Entry::getValue))
-                .orElse(null)
-                .getKey();
-        } catch (NullPointerException e) {
-            return null;
-        }
+        return animals.stream()
+            .collect(Collectors.groupingBy(Animal::sex, Collectors.summingInt(a -> 1)))
+            .entrySet().stream()
+            .sorted((e1, e2) -> -(e1.getValue() - e2.getValue()))
+            .map(Map.Entry::getKey)
+            .findFirst().orElse(null);
     }
 
     public static Map<Animal.Type, Animal> task6(List<Animal> animals) {
         checkAnimals(animals);
         return animals.stream()
             .collect(Collectors.toMap(Animal::type, Function.identity(),
-                BinaryOperator.maxBy(Comparator.comparingInt(Animal::weight))));
+                BinaryOperator.maxBy(Comparator.comparingInt(Animal::weight))
+            ));
     }
 
     public static Animal task7(List<Animal> animals, int k) {
         checkAnimals(animals);
         checkIndex(k);
-        List<Animal> sorted = animals.stream()
+        AtomicInteger i = new AtomicInteger(0);
+        return animals.stream()
             .sorted(Comparator.comparingInt(Animal::age).reversed())
-            .toList();
-        try {
-            return sorted.get(k);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+            .filter(a -> (i.getAndIncrement()) >= k)
+            .findFirst().orElse(null);
     }
 
     public static Optional<Animal> task8(List<Animal> animals, int k) {
@@ -151,11 +148,14 @@ public class Tasks {
     public static Boolean task17(List<Animal> animals) {
         checkAnimals(animals);
         return animals.stream()
-            .filter(a -> a.type() == Animal.Type.DOG && a.bites())
-            .count()
-            < animals.stream()
-            .filter(a -> a.type() == Animal.Type.SPIDER && a.bites())
-            .count();
+            .filter(a -> (a.type() == Animal.Type.DOG || a.type() == Animal.Type.SPIDER) && a.bites())
+            .collect(Collectors.groupingBy(Animal::type, Collectors.summingInt(a -> 1)))
+            .entrySet().stream()
+            .min((e1, e2) -> Objects.equals(e1.getValue(), e2.getValue())
+                ? (e1.getKey() == Animal.Type.DOG ? 1 : -1)
+                : e1.getValue() - e2.getValue())
+            .orElse(Map.entry(Animal.Type.SPIDER, 0))
+            .getKey() == Animal.Type.DOG;
     }
 
     public static Animal task18(List<List<Animal>> animals) {
@@ -166,11 +166,10 @@ public class Tasks {
             checkAnimals(group);
         }
         return animals.stream()
-            .map(as -> as.stream()
-                .filter(a -> a.type() == Animal.Type.FISH)
-                .max(Comparator.comparing(Animal::weight)))
-            .max(Comparator.comparing(a -> a.map(Animal::weight).orElse(0)))
-            .orElseGet(null).orElse(null);
+            .flatMap(Collection::stream)
+            .filter(a -> a.type() == Animal.Type.FISH)
+            .max(Comparator.comparing(Animal::weight))
+            .orElse(null);
     }
 
     public static Map<String, Set<ValidationError>> task19(List<Animal> animals) {
