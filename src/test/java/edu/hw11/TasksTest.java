@@ -47,7 +47,7 @@ public class TasksTest {
         ByteBuddyAgent.install();
         ClassReloadingStrategy classReloadingStrategy = ClassReloadingStrategy
             .fromInstalledAgent();
-        try (DynamicType.Unloaded<ArithmeticUtils> unloaded = new ByteBuddy()
+        try (var unloaded = new ByteBuddy()
             .redefine(ArithmeticUtils.class)
             .method(ElementMatchers.named("sum"))
             .intercept(MethodDelegation.to(NewUtils.class))
