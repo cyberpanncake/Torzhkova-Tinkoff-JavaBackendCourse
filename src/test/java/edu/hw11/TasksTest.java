@@ -44,13 +44,14 @@ public class TasksTest {
         ByteBuddyAgent.install();
         ClassReloadingStrategy classReloadingStrategy = ClassReloadingStrategy
             .fromInstalledAgent();
-        DynamicType.Unloaded<ArithmeticUtils> unloaded = new ByteBuddy()
+        try (DynamicType.Unloaded<ArithmeticUtils> unloaded = new ByteBuddy()
             .redefine(ArithmeticUtils.class)
             .method(ElementMatchers.named("sum"))
             .intercept(MethodDelegation.to(NewUtils.class))
-            .make();
-        Assertions.assertEquals(6, ArithmeticUtils.sum(2, 4));
-        unloaded.load(ArithmeticUtils.class.getClassLoader(), classReloadingStrategy);
-        Assertions.assertEquals(8, ArithmeticUtils.sum(2, 4));
+            .make()) {
+            Assertions.assertEquals(6, ArithmeticUtils.sum(2, 4));
+            unloaded.load(ArithmeticUtils.class.getClassLoader(), classReloadingStrategy);
+            Assertions.assertEquals(8, ArithmeticUtils.sum(2, 4));
+        }
     }
 }
