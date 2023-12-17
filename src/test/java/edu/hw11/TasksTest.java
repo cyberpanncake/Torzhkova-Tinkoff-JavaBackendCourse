@@ -10,6 +10,9 @@ import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
 public class TasksTest {
@@ -40,7 +43,7 @@ public class TasksTest {
     }
 
     @Test
-    void task2Test() {
+    void task2Test() throws IOException {
         ByteBuddyAgent.install();
         ClassReloadingStrategy classReloadingStrategy = ClassReloadingStrategy
             .fromInstalledAgent();
@@ -52,6 +55,7 @@ public class TasksTest {
             Assertions.assertEquals(6, ArithmeticUtils.sum(2, 4));
             unloaded.load(ArithmeticUtils.class.getClassLoader(), classReloadingStrategy);
             Assertions.assertEquals(8, ArithmeticUtils.sum(2, 4));
+            classReloadingStrategy.reset(ArithmeticUtils.class);
         }
     }
 }
