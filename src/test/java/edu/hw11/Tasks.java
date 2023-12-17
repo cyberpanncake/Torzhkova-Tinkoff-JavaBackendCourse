@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
-public class TasksTest {
+public class Tasks {
 
     @Test
     public void task1Test() throws Exception {
