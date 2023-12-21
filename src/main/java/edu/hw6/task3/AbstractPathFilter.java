@@ -7,9 +7,18 @@ import java.nio.file.Path;
 public interface AbstractPathFilter extends DirectoryStream.Filter<Path> {
 
     default AbstractPathFilter and(AbstractPathFilter nextFilter) {
-        if (nextFilter == null) {
+        checkFilter(nextFilter);
+        return p -> accept(p) && nextFilter.accept(p);
+    }
+
+    default AbstractPathFilter or(AbstractPathFilter nextFilter) {
+        checkFilter(nextFilter);
+        return p -> accept(p) || nextFilter.accept(p);
+    }
+
+    private void checkFilter(AbstractPathFilter filter) {
+        if (filter == null) {
             throw new IllegalArgumentException("Фильтр не должен быть null");
         }
-        return p -> accept(p) && nextFilter.accept(p);
     }
 }
