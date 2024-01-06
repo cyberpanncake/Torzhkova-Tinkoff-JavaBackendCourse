@@ -25,7 +25,7 @@
 
 
     <!-- https://checkstyle.org/config_misc.html#NewlineAtEndOfFile -->
-    <!--       Checks whether files end with a new line.            -->
+    <!--       Checks whether files endDate with a new line.            -->
     <module name="NewlineAtEndOfFile"/>
 
 
