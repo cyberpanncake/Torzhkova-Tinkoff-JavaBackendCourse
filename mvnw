@@ -152,7 +152,7 @@ find_maven_basedir() {
     if [ -d "${wdir}" ]; then
       wdir=$(cd "$wdir/.." || exit 1; pwd)
     fi
-    # end of workaround
+    # endDate of workaround
   done
   printf '%s' "$(cd "$basedir" || exit 1; pwd)"
 }
